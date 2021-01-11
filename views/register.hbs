@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="top-header">
+            <h1>Repo.BankAccount</h1>
+        </div>
+
+        <div class="bottom-header">
+
+            <ul>
+                <li><a href="">register</a></li>
+                <li><a href="">Show my accounts</a></li>
+                <li><a href="">Admin</a></li>
+            </ul>
+
+        </div>
+    </header>
+
+    <div></div>
+
+    <div>
+
+        <form class="form-register">
+
+            <input type="text" placeholder="name" name="name">
+            <input type="text" placeholder="surname" name="surname">
+            <input type="number" placeholder="number id" , name="idNumber">
+            <input type="email" placeholder="Email" name="email">
+            <input type="number" placeholder="phone" name="phone">
+
+            <div>
+                <input type="submit" value="save data">
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+    <footer class="main-footer">
+
+        <div class="box-inf-footer">
+            <p>
+                Developed by <span> Asael Enrique de la Rosa Smapayo </span>
+            </p>
+            <address>
+                <p>© 2020 - 2021 SSEF SOFTWARE</p>
+            </address>
+
+
+            <div>
+                <p>About developer technologies:</p>
+
+                <ul>
+                    <li>JavaScript</li>
+                    <li>Node.js</li>
+                    <li>React.js</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>MySQL</li>
+                    <li>MongoDB</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="box-inf-footer">
+
+            <div>
+                <p>Contact:</p>
+
+                <ul>
+                    <li>linkedin: <a href="https://www.linkedin.com/in/asael-de-la-rosa-sampayo-4a94651a3/">Asael de la
+                            Rosa Sampayo</a></li>
+                    <li>Github: <a href="https://github.com/asael20">asael20</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+
+
+    </footer>
+
+
+
+    <script >
+
+        let form = document.querySelector('form');
+
+
+        form.addEventListener('submit', registerUser);
+
+        async function registerUser (e) {
+
+            e.preventDefault();
+
+            let data = {
+                name: form.name.value,
+                surname: form.surname.value,
+                idNumber: form.idNumber.value,
+                email: form.email.value,
+                phone: form.email.value
+            }
+
+            console.log(data)
+
+            const infoRequest = {
+                
+                body: JSON.stringify(data),
+                headers: { 'Content-type': 'application/json' },
+                method: 'POST'
+
+            }
+
+
+            let result = await fetch('http://localhost:3000/service.cards/api/users',infoRequest)
+                .then((value) => value.text())
+                .then((data) => data)
+                .catch(err => {
+                    console.log('Hubo un Error', err)
+                    return null
+                })
+
+
+            console.log(result);
+
+        }
+
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>
