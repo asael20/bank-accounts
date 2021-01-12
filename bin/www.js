@@ -1,7 +1,7 @@
 const config = require('config');
 const app = require('../app');
 
-let port = config.get('server.port');
+let port = process.env.PORT || 3000;
 
 
 // server listening on port defined
