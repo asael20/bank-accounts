@@ -1,34 +1,26 @@
 // -------------------------------------------------
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
+const path = require('path')
+
 const config = require('config');
 const express = require('express');
 const app = express();
-
+const hbs = require('hbs');
 // ------------------------------------------------
 
 const routes = require('./routes/inex');
 require('./data/connection');
 //-------------------------------------------------
 
-var jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: 'https://dev-7z5dlz6h.us.auth0.com/.well-known/jwks.json'
-  }),
-  audience: 'http://localhost:3000/service.cards/api/',
-  issuer: 'https://dev-7z5dlz6h.us.auth0.com/',
-  algorithms: ['RS256']
-});
 
 
-const domain = config.get('server.domain');
+const partialsPath = path.join(__dirname, '/templates/partials');
+const viewsPath = path.join(__dirname, '/templates/views')
 
-app.set('view engine', 'hbs')
+hbs.registerPartials(partialsPath);
 
-app.use(jwtCheck);
+app.set('view engine', 'hbs');
+app.set('views', viewsPath)
+
 app.use(express.static('public'))
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
